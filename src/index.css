@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  /* 1. HEADERS: Oxanium (The Sci-Fi Look) */
+  --font-sans: "Oxanium", ui-sans-serif, system-ui, sans-serif;
+
+  /* 2. BODY: Urbanist (Clean & Readable) */
+  --font-body: "Urbanist", ui-sans-serif, system-ui, sans-serif;
+
+  /* 3. CODE: JetBrains Mono (Standard Dev Font) */
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Colors */
+  --color-cyber-cyan: #06b6d4;
+  --color-void-black: #030014;
+}
+
+@layer base {
+  /* Hide default cursor on non-touch devices */
+  @media (hover: hover) and (pointer: fine) {
+    body,
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    div,
+    textarea {
+      cursor: none !important;
+    }
+  }
+}
+
+/* --- BASE STYLES --- */
+html {
+  background-color: var(--color-void-black);
+  font-size: 16px;
+  font-family: var(--font-body); /* Sets Urbanist as default for everything */
+  color: #e2e8f0; /* Default text color */
+  line-height: 1.6;
+}
+
+/* --- TYPOGRAPHY RULES --- */
+
+/* Only Headings get the Sci-Fi Font */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-sans);
+  font-weight: 700; /* Oxanium looks best bold */
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+/* Paragraphs keep the clean font */
+p,
+span,
+div,
+a,
+li {
+  font-family: var(--font-body);
+}
+
+/* Force specific elements to use the Code font */
+.font-mono {
+  font-family: var(--font-mono) !important;
+  font-size: 0.95rem;
+}
+
+/* Specific fix for the "text-xs" class when used with your fonts */
+.text-xs {
+  font-size: 0.85rem !important; /* Was 0.75rem (too small) */
+}
+
+.text-\[10px\] {
+  font-size: 0.75rem !important; /* Bumps 10px up to 12px visually */
+}
+
+/* Fix for the giant numbers specifically */
+.text-\[10rem\],
+.text-\[12rem\],
+.text-\[16rem\] {
+  font-family: "Oxanium", sans-serif !important; /* Oxanium looks better for big numbers than mono */
+  font-weight: 800;
+}

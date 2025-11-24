@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Purab Singla | Full Stack Engineer</title>
+    <meta
+      name="description"
+      content="Portfolio of Purab Singla - A Full Stack MERN Engineer specializing in scalable architecture, real-time systems, and interactive 3D web experiences."
+    />
+    <meta
+      name="keywords"
+      content="Purab Singla, MERN Stack, Full Stack Developer, React, Node.js, Three.js, WebGL, Creative Developer"
+    />
+    <meta name="author" content="Purab Singla" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Purab Singla | Full Stack Engineer" />
+    <meta
+      property="og:description"
+      content="Building digital reality with code. Explore my high-performance web applications."
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Purab Singla | Full Stack Engineer" />
+    <meta
+      name="twitter:description"
+      content="Building digital reality with code. Explore my high-performance web applications."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Oxanium:wght@400;500;600;700;800&family=Urbanist:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* 1. BASE THEME (Prevents white flash) */
+      body {
+        background-color: #030014;
+        margin: 0;
+        color: #e2e8f0;
+      }
+
+      /* 2. SMOOTH SCROLLING */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* 3. CYBERPUNK SCROLLBAR */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #030014; /* Void Black */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #1e293b; /* Dark Slate */
+        border-radius: 3px;
+        transition: background 0.3s ease;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #06b6d4; /* Cyan Hover */
+      }
+
+      /* 4. "SYSTEM BOOT" LOADER */
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #030014;
+        background-image: linear-gradient(
+            rgba(6, 182, 212, 0.05) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+        background-size: 30px 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out, visibility 0.5s;
+      }
+
+      /* The Glowing Core */
+      .loader-core {
+        position: relative;
+        width: 60px;
+        height: 60px;
+        margin-bottom: 20px;
+      }
+
+      .loader-core::before,
+      .loader-core::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      /* Inner Pulse */
+      .loader-core::before {
+        width: 100%;
+        height: 100%;
+        background: #06b6d4;
+        opacity: 0.2;
+        animation: pulse 1.5s ease-out infinite;
+      }
+
+      /* Spinning Ring */
+      .loader-ring {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 2px solid transparent;
+        border-top-color: #06b6d4;
+        border-right-color: #06b6d4;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+      }
+
+      .loader-text {
+        font-family: "Courier New", Courier, monospace;
+        color: #06b6d4;
+        font-size: 14px;
+        letter-spacing: 4px;
+        font-weight: bold;
+        text-transform: uppercase;
+        animation: blink 1s infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: translate(-50%, -50%) scale(0.5);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(2);
+          opacity: 0;
+        }
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      /* Hide class */
+      .loaded .loading-screen {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading-screen">
+      <div class="loader-core">
+        <div class="loader-ring"></div>
+      </div>
+      <div class="loader-text">INITIALIZING_SYSTEM</div>
+    </div>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+
+    <script>
+      // Remove loader when React mounts
+      window.addEventListener("load", function () {
+        // Small delay to ensure the "system boot" feels deliberate
+        setTimeout(() => {
+          document.body.classList.add("loaded");
+        }, 800);
+      });
+    </script>
+  </body>
+</html>
