@@ -19,11 +19,10 @@ const Skills: React.FC = () => {
       icon: Globe,
       id: "SYS_01",
       skills: [
-        { name: "React.js", level: 90 },
-        { name: "TypeScript", level: 85 },
-        { name: "Next.js", level: 80 },
+        { name: "React.js", level: 95 },
+        { name: "Next.js", level: 85 },
         { name: "Tailwind CSS", level: 95 },
-        { name: "Framer Motion", level: 85 },
+        { name: "shadcn/ui", level: 90 },
       ],
     },
     {
@@ -32,9 +31,9 @@ const Skills: React.FC = () => {
       id: "SYS_02",
       skills: [
         { name: "Node.js", level: 85 },
-        { name: "Express.js", level: 80 },
-        { name: "REST APIs", level: 90 },
-        { name: "System Design", level: 75 },
+        { name: "Express.js", level: 85 },
+        { name: "TypeScript", level: 80 },
+        { name: "Socket.io", level: 80 }, // Included from your Project/Objective
       ],
     },
     {
@@ -42,21 +41,21 @@ const Skills: React.FC = () => {
       icon: Database,
       id: "SYS_03",
       skills: [
-        { name: "MongoDB", level: 85 },
-        { name: "PostgreSQL", level: 70 },
-        { name: "Redis", level: 60 },
-        { name: "Mongoose", level: 80 },
+        { name: "MongoDB", level: 90 },
+        { name: "MySQL", level: 75 },
+        { name: "SQLite", level: 70 },
       ],
     },
     {
-      title: "DEVOPS_OPS",
+      title: "TOOLS", // Renamed slightly to fit your "Tools" section
       icon: Cpu,
       id: "SYS_04",
       skills: [
-        { name: "Docker", level: 70 },
         { name: "Git/GitHub", level: 90 },
-        { name: "CI/CD", level: 65 },
-        { name: "AWS (Basic)", level: 60 },
+        { name: "Vite", level: 85 },
+        { name: "Bun", level: 75 },
+        { name: "NPM", level: 85 },
+        { name: "Electron.js", level: 70 },
       ],
     },
   ];

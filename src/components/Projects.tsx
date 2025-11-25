@@ -13,6 +13,12 @@ interface projects {
   color: string;
 }
 
+interface bgVariants {
+  cyan: string;
+  purple: string;
+  emerald: string;
+}
+
 // --- PARALLAX CARD COMPONENT ---
 const ProjectCard = ({
   project,
@@ -55,6 +61,56 @@ const ProjectCard = ({
     return "#10b981";
   };
   const glowColor = getColorHex(project.color);
+
+  // Existing variants (Kept as requested)
+  const backgroundVariants: bgVariants = {
+    cyan: "bg-cyan-500",
+    purple: "bg-purple-500",
+    emerald: "bg-emerald-500",
+  };
+  const borderVariants: bgVariants = {
+    cyan: "border-cyan-500",
+    purple: "border-purple-500",
+    emerald: "border-emerald-500",
+  };
+  const textVariants: bgVariants = {
+    cyan: "text-cyan-400",
+    purple: "text-purple-400",
+    emerald: "text-emerald-400",
+  };
+
+  // --- NEW: Explicit Style Map for Transparencies & Hovers ---
+  // This solves the Tailwind scanning issue by writing out the full class names.
+  const styleConfig = {
+    cyan: {
+      btnBg: "bg-cyan-500/10",
+      btnBorder: "border-cyan-500/20",
+      btnHoverBorder: "hover:border-cyan-500/50",
+      techHoverBorder: "hover:border-cyan-500/30",
+      techHoverText: "hover:text-cyan-400",
+      scanline: "bg-cyan-400/80",
+    },
+    purple: {
+      btnBg: "bg-purple-500/10",
+      btnBorder: "border-purple-500/20",
+      btnHoverBorder: "hover:border-purple-500/50",
+      techHoverBorder: "hover:border-purple-500/30",
+      techHoverText: "hover:text-purple-400",
+      scanline: "bg-purple-400/80",
+    },
+    emerald: {
+      btnBg: "bg-emerald-500/10",
+      btnBorder: "border-emerald-500/20",
+      btnHoverBorder: "hover:border-emerald-500/50",
+      techHoverBorder: "hover:border-emerald-500/30",
+      techHoverText: "hover:text-emerald-400",
+      scanline: "bg-emerald-400/80",
+    },
+  };
+
+  const activeStyle =
+    styleConfig[project.color as keyof bgVariants] || styleConfig.cyan;
+
   return (
     <section
       ref={ref}
@@ -82,9 +138,8 @@ const ProjectCard = ({
         </span>
         <span
           style={{
-            // UPDATED: Much higher opacity (0.6) and thicker stroke for visibility
             WebkitTextStroke: `2px rgba(${rgb}, 0.6)`,
-            color: `rgba(${rgb}, 0.05)`, // Slight fill to make it look solid
+            color: `rgba(${rgb}, 0.05)`,
             fontFamily: "monospace",
             filter: "drop-shadow(0 0 20px rgba(0,0,0,0.5))",
           }}
@@ -103,22 +158,30 @@ const ProjectCard = ({
         {/* >>>> MECHANICAL CORNER BRACKETS (The "Heavy" Borders) <<<< */}
         {/* Top Left */}
         <div
-          className={`absolute -top-2 -left-2 w-12 h-12 border-t-4 border-l-4 border-${project.color}-500 z-30 transition-all duration-300 group-hover:-translate-x-2 group-hover:-translate-y-2`}
+          className={`absolute -top-2 -left-2 w-12 h-12 border-t-4 border-l-4 ${
+            borderVariants[project.color as keyof bgVariants]
+          } z-30 transition-all duration-300 group-hover:-translate-x-2 group-hover:-translate-y-2`}
           style={{ boxShadow: `0 0 15px ${glowColor}` }}
         />
         {/* Top Right */}
         <div
-          className={`absolute -top-2 -right-2 w-12 h-12 border-t-4 border-r-4 border-${project.color}-500 z-30 transition-all duration-300 group-hover:translate-x-2 group-hover:-translate-y-2`}
+          className={`absolute -top-2 -right-2 w-12 h-12 border-t-4 border-r-4 ${
+            borderVariants[project.color as keyof bgVariants]
+          } z-30 transition-all duration-300 group-hover:translate-x-2 group-hover:-translate-y-2`}
           style={{ boxShadow: `0 0 15px ${glowColor}` }}
         />
         {/* Bottom Left */}
         <div
-          className={`absolute -bottom-2 -left-2 w-12 h-12 border-b-4 border-l-4 border-${project.color}-500 z-30 transition-all duration-300 group-hover:-translate-x-2 group-hover:translate-y-2`}
+          className={`absolute -bottom-2 -left-2 w-12 h-12 border-b-4 border-l-4 ${
+            borderVariants[project.color as keyof bgVariants]
+          } z-30 transition-all duration-300 group-hover:-translate-x-2 group-hover:translate-y-2`}
           style={{ boxShadow: `0 0 15px ${glowColor}` }}
         />
         {/* Bottom Right */}
         <div
-          className={`absolute -bottom-2 -right-2 w-12 h-12 border-b-4 border-r-4 border-${project.color}-500 z-30 transition-all duration-300 group-hover:translate-x-2 group-hover:translate-y-2`}
+          className={`absolute -bottom-2 -right-2 w-12 h-12 border-b-4 border-r-4 ${
+            borderVariants[project.color as keyof bgVariants]
+          } z-30 transition-all duration-300 group-hover:translate-x-2 group-hover:translate-y-2`}
           style={{ boxShadow: `0 0 15px ${glowColor}` }}
         />
 
@@ -132,22 +195,16 @@ const ProjectCard = ({
               className="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-200"
             />
 
-            {/* RGB Split Glitch Effect on Hover (Pseudo-element style logic) */}
+            {/* RGB Split Glitch Effect on Hover */}
             <div className="absolute inset-0 bg-cyan-500/20 mix-blend-screen opacity-0 group-hover:animate-glitch-1" />
             <div className="absolute inset-0 bg-red-500/20 mix-blend-screen opacity-0 group-hover:animate-glitch-2" />
           </div>
-
-          {/* Heavy Scanline (Thick bar) */}
-          <div
-            className={`absolute inset-x-0 h-2 bg-${project.color}-400/80 shadow-[0_0_30px_${glowColor}] top-0 group-hover:animate-scanline opacity-0 group-hover:opacity-100 pointer-events-none z-20`}
-          />
 
           {/* CRT Grid Texture */}
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none" />
           <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.5)_50%,rgba(0,0,0,0)_50%)] bg-size-[100%_4px] pointer-events-none z-10 opacity-20" />
 
           {/* >>>> HUD UI ELEMENTS <<<< */}
-
           {/* Top Center Badge */}
           <div className="absolute top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-black/90 border border-white/20 text-xs font-mono text-white tracking-[0.3em]">
             TARGET_LOCKED
@@ -156,13 +213,19 @@ const ProjectCard = ({
           {/* Bottom Loading Bar */}
           <div className="absolute bottom-0 left-0 w-full h-1 bg-slate-800">
             <div
-              className={`h-full bg-${project.color}-500 w-0 group-hover:w-full transition-all duration-[1.5s] ease-out shadow-[0_0_10px_${glowColor}]`}
+              className={`h-full ${
+                backgroundVariants[project.color as keyof bgVariants]
+              } w-0 group-hover:w-full transition-all duration-[1.5s] ease-out shadow-[0_0_10px_${glowColor}]`}
             />
           </div>
 
           {/* Bottom Right Status */}
           <div
-            className={`absolute bottom-4 right-4 px-3 py-1 bg-black/90 border border-${project.color}-500 text-${project.color}-400 text-xs font-bold font-mono`}
+            className={`absolute bottom-4 right-4 px-3 py-1 bg-black/90 border ${
+              borderVariants[project.color as keyof bgVariants]
+            } ${
+              textVariants[project.color as keyof bgVariants]
+            } text-xs font-bold font-mono`}
           >
             <span className="animate-pulse mr-2">●</span>SYSTEM_ONLINE
           </div>
@@ -177,9 +240,15 @@ const ProjectCard = ({
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <div className="flex items-center gap-3 mb-2">
-            <div className={`h-px w-8 bg-${project.color}-500`} />
+            <div
+              className={`h-px w-8 ${
+                backgroundVariants[project.color as keyof bgVariants]
+              }`}
+            />
             <span
-              className={`text-${project.color}-400 font-mono text-sm tracking-wider uppercase`}
+              className={`${
+                textVariants[project.color as keyof bgVariants]
+              } font-mono text-sm tracking-wider uppercase`}
             >
               {project.category}
             </span>
@@ -198,26 +267,37 @@ const ProjectCard = ({
           {project.description}
         </motion.p>
 
-        {/* Tech Stack */}
+        {/* Tech Stack - Updated Hover Classes */}
         <div className="flex flex-wrap gap-2">
           {project.tech.map((tech: string, i: number) => (
             <span
               key={i}
-              className={`px-3 py-1 bg-slate-800/50 border border-white/5 text-slate-300 text-xs font-mono hover:border-${project.color}-500/30 hover:text-${project.color}-400 transition-colors`}
+              className={`px-3 py-1 bg-slate-800/50 border border-white/5 text-slate-300 text-xs font-mono 
+                ${activeStyle.techHoverBorder}
+                ${activeStyle.techHoverText}
+                transition-colors`}
             >
               {tech}
             </span>
           ))}
         </div>
 
-        {/* Buttons */}
+        {/* Buttons - Updated with Explicit Variants */}
         <div className="flex items-center gap-6 pt-4">
           <a
             href={project.links.live}
-            className={`group/btn relative px-6 py-3 bg-${project.color}-500/10 border border-${project.color}-500/20 hover:border-${project.color}-500/50 text-${project.color}-400 font-medium overflow-hidden transition-all`}
+            target="_blank"
+            className={`group/btn relative px-6 py-3 font-medium overflow-hidden transition-all border
+              ${activeStyle.btnBg} 
+              ${activeStyle.btnBorder} 
+              ${activeStyle.btnHoverBorder} 
+              ${textVariants[project.color as keyof bgVariants]}
+            `}
           >
             <div
-              className={`absolute inset-0 translate-y-full group-hover/btn:translate-y-0 bg-${project.color}-500/10 transition-transform duration-300`}
+              className={`absolute inset-0 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300
+                ${activeStyle.btnBg}
+              `}
             />
             <span className="relative flex items-center gap-2">
               <Zap size={18} /> Initialize Demo
@@ -225,6 +305,7 @@ const ProjectCard = ({
           </a>
           <a
             href={project.links.code}
+            target="_blank"
             className="flex items-center gap-2 text-slate-500 hover:text-white transition-colors"
           >
             <Github size={18} /> Source Code
@@ -242,38 +323,44 @@ const Projects: React.FC = () => {
   const projects = [
     {
       id: "01",
-      title: "E-Commerce Core",
-      category: "System Architecture",
+      title: "Whiteboard Application",
+      category: "Real-Time Application",
       description:
-        "A high-performance commerce engine. Features real-time inventory tracking, secure Stripe payments, and a custom CMS for product management.",
-      image:
-        "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      tech: ["React", "Node.js", "MongoDB", "Redis"],
-      links: { live: "#", code: "#" },
+        "A powerful real-time collaborative whiteboard built for seamless teamwork. Draw, brainstorm, and share ideas instantly on a live canvas.",
+      image: "assets/whiteboard.png",
+      tech: ["React.js", "Tailwind CSS", "Node.js", "MongoDB", "Socket.io"],
+      links: {
+        live: "https://whiteboard-alpha-nine.vercel.app/",
+        code: "https://github.com/Purabsingla/whiteboard",
+      },
       color: "cyan",
     },
     {
       id: "02",
-      title: "Task Synergy",
-      category: "Real-Time Protocol",
+      title: "React Pro Kit",
+      category: "Productivity & Collaboration",
       description:
-        "Socket-based project management protocol. Enables teams to drag-and-drop tasks, chat in real-time, and track sprint velocity without refreshing.",
-      image:
-        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      tech: ["Next.js", "Socket.io", "Prisma", "PostgreSQL"],
-      links: { live: "#", code: "#" },
+        "A professional, customizable, and modern React + Vite + Tailwind CSS template designed to kickstart your frontend projects. It comes pre-configured with powerful tools and UI components using shadcn/ui, TypeScript, and more.",
+      image: "assets/npm.png",
+      tech: ["React.js", "Vite", "Tailwind CSS", "TypeScript", "shadcn/ui"],
+      links: {
+        live: "https://www.npmjs.com/package/react-pro-kit",
+        code: "https://github.com/Purabsingla/react-pro-kit",
+      },
       color: "purple",
     },
     {
       id: "03",
-      title: "Analytics Hub",
-      category: "Data Visualization",
+      title: "CineVerse",
+      category: "Entertainment & Media Discovery",
       description:
-        "Transforming raw data into actionable intelligence. Processes 10k+ events/sec and visualizes trends using hardware-accelerated graphs.",
-      image:
-        "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      tech: ["React", "D3.js", "Python", "AWS"],
-      links: { live: "#", code: "#" },
+        "Discover your next favorite movie. Browse trending titles, watch trailers, and find global streaming availability all in one immersive hub.",
+      image: "assets/cineverse.png",
+      tech: ["React.js", "Tailwind CSS", "TMDB API", "IPInfo API"],
+      links: {
+        live: "https://purabsingla.github.io/CineVerse/",
+        code: "https://github.com/Purabsingla/CineVerse",
+      },
       color: "emerald",
     },
   ];
@@ -325,15 +412,20 @@ const Projects: React.FC = () => {
         </div>
 
         {/* View All Button */}
-        <div className="mt-32 text-center">
-          <button className="group relative px-8 py-4 bg-transparent overflow-hidden rounded-full">
-            <div className="absolute inset-0 w-full h-full bg-linear-to-r from-cyan-500 to-blue-600 opacity-10 group-hover:opacity-20 transition-opacity" />
-            <div className="absolute inset-0 w-full h-full border border-cyan-500/30 rounded-full group-hover:border-cyan-500/60 transition-colors" />
-            <span className="relative flex items-center gap-2 text-cyan-400 group-hover:text-white transition-colors font-mono font-bold tracking-wider">
-              VIEW_ALL_ARCHIVES <ArrowUpRight size={18} />
-            </span>
-          </button>
-        </div>
+        <a
+          href="https://github.com/Purabsingla?tab=repositories"
+          target="_blank"
+        >
+          <div className="mt-32 text-center">
+            <button className="group relative px-8 py-4 bg-transparent overflow-hidden rounded-full">
+              <div className="absolute inset-0 w-full h-full bg-linear-to-r from-cyan-500 to-blue-600 opacity-10 group-hover:opacity-20 transition-opacity" />
+              <div className="absolute inset-0 w-full h-full border border-cyan-500/30 rounded-full group-hover:border-cyan-500/60 transition-colors" />
+              <span className="relative flex items-center gap-2 text-cyan-400 group-hover:text-white transition-colors font-mono font-bold tracking-wider">
+                VIEW_ALL_ARCHIVES <ArrowUpRight size={18} />
+              </span>
+            </button>
+          </div>
+        </a>
       </div>
 
       <style>{`
