@@ -19,10 +19,10 @@ const Skills: React.FC = () => {
       icon: Globe,
       id: "SYS_01",
       skills: [
-        { name: "React.js", level: 95 },
-        { name: "Next.js", level: 85 },
-        { name: "Tailwind CSS", level: 95 },
-        { name: "shadcn/ui", level: 90 },
+        { name: "React.js", level: 60 },
+        { name: "Next.js", level: 55 },
+        { name: "Tailwind CSS", level: 80 },
+        { name: "shadcn/ui", level: 80 },
       ],
     },
     {
@@ -30,10 +30,10 @@ const Skills: React.FC = () => {
       icon: Server,
       id: "SYS_02",
       skills: [
-        { name: "Node.js", level: 85 },
-        { name: "Express.js", level: 85 },
-        { name: "TypeScript", level: 80 },
-        { name: "Socket.io", level: 80 }, // Included from your Project/Objective
+        { name: "Node.js", level: 65 },
+        { name: "Express.js", level: 65 },
+        { name: "TypeScript", level: 50 },
+        { name: "Socket.io", level: 70 }, // Included from your Project/Objective
       ],
     },
     {
@@ -41,7 +41,7 @@ const Skills: React.FC = () => {
       icon: Database,
       id: "SYS_03",
       skills: [
-        { name: "MongoDB", level: 90 },
+        { name: "MongoDB", level: 70 },
         { name: "MySQL", level: 75 },
         { name: "SQLite", level: 70 },
       ],
@@ -51,11 +51,11 @@ const Skills: React.FC = () => {
       icon: Cpu,
       id: "SYS_04",
       skills: [
-        { name: "Git/GitHub", level: 90 },
+        { name: "Git/GitHub", level: 85 },
         { name: "Vite", level: 85 },
-        { name: "Bun", level: 75 },
-        { name: "NPM", level: 85 },
-        { name: "Electron.js", level: 70 },
+        { name: "Bun", level: 60 },
+        { name: "NPM", level: 80 },
+        { name: "Electron.js", level: 60 },
       ],
     },
   ];
